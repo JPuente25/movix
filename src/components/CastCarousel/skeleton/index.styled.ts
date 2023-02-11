@@ -53,14 +53,12 @@ export const CrewCard = styled.div`
 
 export const Picture = styled.div`
    width: 175px;
-   height: 175px;
-   border-radius: 50%;
+   aspect-ratio: 0.5;
    background-color: var(--skeleton);
    animation: ${skeleton} 2s infinite;
 
    @media only screen and (max-width: 768px) {
       width: 125px;
-      height: 125px;
    }
 `;
 
