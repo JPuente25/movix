@@ -19,27 +19,24 @@ export const Section = styled.section`
 // Crew Container
 export const Container = styled.div`
    display: flex;
-   height: 250px;
+   height: 100%;
    align-items: start;
    overflow: scroll;
+   overflow-y: visible;
    gap: 20px;
-
-   @media only screen and (min-width: 768px) {
-      height: 325px;
-   }
-
 `;
 
 // Crew people
 export const CrewCard = styled.div`
    width: 125px;
-   height: 100%;
+   height: 260px;
    display: flex;
    flex-direction: column;
    justify-content: space-between;
 
    @media only screen and (min-width: 768px) {
       width: 175px;
+      height: 330px;
    }
 `;
 
