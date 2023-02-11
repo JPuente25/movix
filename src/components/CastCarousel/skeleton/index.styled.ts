@@ -34,6 +34,7 @@ export const Container = styled.div`
    display: flex;
    align-items: center;
    overflow: scroll;
+   overflow-y: visible;
    gap: 20px;
 `;
 
