@@ -1,7 +1,7 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { CreditsProps } from '../../types';
-import { BASE_IMG_URL } from '../../utils/api/api';
+import { BASE_IMG_URL, BASE_IMG_URL_300 } from '../../utils/api/api';
 import { NoContent } from '../NoContent';
 import { Img } from '../Img';
 import { CrewInfo, CrewCard, Picture, Container, Section } from './index.styled';
@@ -22,7 +22,7 @@ const CastCarousel = ({data}: Props) => {
                <CrewCard key={uuidv4()} className="crew">
                   <Picture className="picture">
                      <Img src={person.profile_path 
-                        ? BASE_IMG_URL + person.profile_path
+                        ? BASE_IMG_URL_300 + person.profile_path
                         : null} />
                   </Picture>
 

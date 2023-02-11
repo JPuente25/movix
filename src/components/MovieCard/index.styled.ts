@@ -56,7 +56,9 @@ export const TextBlock = styled.div`
 
    .title {
       font-size: 16px;
-      margin-bottom: 10px;
+      margin: 0;
+      margin-top: -10px;
+      margin-bottom: 20px;
       line-height: 24px;
       text-overflow: ellipsis;
       overflow: hidden;
@@ -68,17 +70,18 @@ export const TextBlock = styled.div`
          color: var(--pink);
       }
 
-      @media only screen and (min-width: 1024px) {
+      @media only screen and (min-width: 768px) {
          font-size: 20px;
+         margin-top: 0;
       }
    }
 
    .date {
-      font-size: 14px;
+      font-size: 10px;
       opacity: 0.5;
 
-      @media only screen and (min-width: 1024px) {
-         font-size: 18px;
+      @media only screen and (min-width: 768px) {
+         font-size: 14px;
       }
    }
 `;

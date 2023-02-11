@@ -12,6 +12,9 @@ export const MovieContainer = styled.div`
    overflow: scroll;
    width: 100%;
    gap: 10px;
+    &::-webkit-scrollbar {
+      display: none;
+    }
 `;
 
 export const GenresContainer = styled.div`

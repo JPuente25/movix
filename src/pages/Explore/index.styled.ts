@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 
 export const Container = styled.div`
-   padding-top: 60px;
+   padding: 60px 20px 0 20px;
+   /* margin: 0 20px; */
 `;
 
 export const ToolsContainer = styled.div`
@@ -111,22 +112,26 @@ export const Title = styled.h1`
 
 export const MoviesContainer = styled.div`
    display: grid;
-   grid-template-columns: repeat(2, ${window.innerWidth / 2 - 10}px);
+   grid-template-columns: repeat(2, ${window.innerWidth / 2 - 30}px);
    justify-content: center;
    align-items: center;
    margin: 0 auto;
    gap: 10px;
 
+   &::-webkit-scrollbar {
+      display: none;
+   }
+
    @media only screen and (min-width: 640px) {
-      grid-template-columns: repeat(3, ${window.innerWidth / 3 - 10}px);
+      grid-template-columns: repeat(3, ${window.innerWidth / 3 - 20}px);
    }
 
    @media only screen and (min-width: 768px) {
-      grid-template-columns: repeat(4, ${window.innerWidth / 4 - 10}px);
+      grid-template-columns: repeat(4, ${window.innerWidth / 4 - 20}px);
    }
 
    @media only screen and (min-width: 1024px) {
-      grid-template-columns: repeat(5, ${window.innerWidth / 5 - 10}px);
+      grid-template-columns: repeat(5, ${window.innerWidth / 5 - 20}px);
    }
 
    .movie-card {

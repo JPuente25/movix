@@ -3,7 +3,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import defaultPoster from '../../assets/no-poster.png';
 import { MovieProps } from '../../types';
-import { BASE_IMG_URL } from '../../utils/api/api';
+import { BASE_IMG_URL, BASE_IMG_URL_300 } from '../../utils/api/api';
 import { GenresCarousel } from '../GenresCarousel';
 import { Img } from '../Img';
 import { RatingCircle } from '../RatingCircle';
@@ -17,7 +17,7 @@ interface Props {
 
 const MovieCard = ({ movie, movieWidth, selectedMedia}: Props) => {
    const navigate = useNavigate();
-   const imageSrc = movie.poster_path ? BASE_IMG_URL + movie.poster_path : defaultPoster;
+   const imageSrc = movie.poster_path ? BASE_IMG_URL_300 + movie.poster_path : defaultPoster;
 
    const handleClick = (movie: MovieProps) => {
          navigate(`/details/${movie.media_type || selectedMedia}/${movie.id}`);

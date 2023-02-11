@@ -1,15 +1,15 @@
-import styled from "styled-components";
-import { Container } from "../ContentWrapper/index.styled";
+import styled from 'styled-components';
+import { Container } from '../ContentWrapper/index.styled';
 
 // Container
 export const ContentWrapper = styled(Container)`
    padding: 0;
-    .title {
+   .title {
       font-size: 24px;
       color: white;
       font-weight: normal;
       margin-bottom: 20px;
-    }
+   }
 `;
 // --------------
 
@@ -19,6 +19,10 @@ export const CardContainer = styled.div`
    gap: 20px;
    overflow: scroll;
    overflow-y: hidden;
+
+   &::-webkit-scrollbar {
+      display: none;
+   }
 `;
 
 //---------
@@ -69,4 +73,3 @@ export const VideoImage = styled.figure`
    }
 `;
 // ----------------------
-
