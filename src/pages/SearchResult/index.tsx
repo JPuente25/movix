@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import _ from 'underscore';
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useParams } from 'react-router-dom';
 import { DataProps } from '../../types';
@@ -9,11 +9,12 @@ import { MoviesContainer } from '../Explore/index.styled';
 import { MovieCard } from '../../components/MovieCard';
 import { Container } from './index.styled';
 import { Loader } from './Loader';
+import { NoContent } from '../../components/NoContent';
 
 interface SearchStates {
-   data: DataProps
-   page: number
-   loading: boolean
+   data: DataProps;
+   page: number;
+   loading: boolean;
 }
 
 const SearchResult = () => {
@@ -29,18 +30,23 @@ const SearchResult = () => {
             params: {
                query: query,
                page: 1,
-            }
-         })
+            },
+         });
 
          if (status >= 200 && status < 300) {
-            setData(searchData);
+            setData({
+               page: searchData.page,
+               total_pages: searchData.total_pages,
+               results: searchData.results.filter((movie) => movie.media_type !== 'person'),
+               total_results: searchData.total_results,
+            });
             setLoading(false);
             setPage(2);
          }
       } catch (e: any) {
          console.log(e);
       }
-   }
+   };
 
    const fetchNextPageData = async () => {
       try {
@@ -54,7 +60,7 @@ const SearchResult = () => {
          if (status >= 200 && status < 300) {
             setData({
                page: searchData.page,
-               results: [...data.results, ...searchData.results],
+               results: [...data.results, ...searchData.results.filter((movie) => movie.media_type !== 'person')],
                total_results: searchData.total_results,
                total_pages: searchData.total_pages,
             });
@@ -66,41 +72,47 @@ const SearchResult = () => {
    };
 
    const handleNextPage = () => {
-      const throttleFetch = _.throttle(() => {fetchNextPageData()}, 3000);
+      const throttleFetch = _.throttle(() => {
+         fetchNextPageData();
+      }, 3000);
       throttleFetch();
-   }
+   };
 
    useEffect(() => {
       fetchInitialData();
-   // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [params])
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [params]);
 
-   console.log(data);
+   console.log(data.results);
 
    return (
       <Container>
          <span className="query">You are looking for "{params.query}"</span>
 
-         {!loading  
-         ? <InfiniteScroll
+         {!loading ? (
+            <InfiniteScroll
                dataLength={data.results?.length || 0}
                next={handleNextPage}
                hasMore={data.page < data.total_pages}
-               loader={<></>}
-            >
-               <MoviesContainer>
-                  {data.results.map((movie) => {
-                     return (movie.media_type === 'person') 
-                     ? undefined
-                     : <MovieCard
+               loader={<></>}>
+
+
+               {data.results.length !== 0 
+                  ? <MoviesContainer>
+                  {data.results.map((movie) => (
+                     <MovieCard
                         key={uuidv4()}
                         movie={movie}
                      />
-                  })}
+                  ))}
                </MoviesContainer>
-            </InfiniteScroll>
-         : <Loader />}
+               : <NoContent />}
 
+
+            </InfiniteScroll>
+         ) : (
+            <Loader />
+         )}
       </Container>
    );
 };
