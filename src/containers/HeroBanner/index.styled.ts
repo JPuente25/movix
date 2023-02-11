@@ -76,7 +76,7 @@ export const Subtitle = styled.span`
    }
 `;
 
-export const SearchField = styled.div<{queryWarning?: string}>`
+export const SearchField = styled.form<{queryWarning?: string}>`
    display: flex;
    align-items: center;
    width: 100%;

@@ -3,7 +3,11 @@ import styled from 'styled-components';
 export const Container = styled.div`
    padding-top: 60px;
    padding-bottom: 60px;
-
+   
+   form {
+      width: 95%;
+      margin: 20px auto;
+   }
    span.query {
       display: flex;
       align-items: center;
