@@ -19,33 +19,40 @@ export const Section = styled.section`
 // Crew Container
 export const Container = styled.div`
    display: flex;
-   align-items: center;
+   height: 250px;
+   align-items: start;
    overflow: scroll;
    gap: 20px;
+
+   @media only screen and (min-width: 768px) {
+      height: 325px;
+   }
+
 `;
 
 // Crew people
 export const CrewCard = styled.div`
-   width: 175px;
+   width: 125px;
+   height: 100%;
    display: flex;
    flex-direction: column;
-   align-items: center;
-   justify-content: center;
-   gap: 30px;
-   @media only screen and (max-width: 768px) {
-      width: 125px;
+   justify-content: space-between;
+
+   @media only screen and (min-width: 768px) {
+      width: 175px;
    }
 `;
 
-export const Picture = styled.figure`
+export const Picture = styled.div`
    width: 175px;
-   height: 175px;
-   border-radius: 50%;
-   contain: content;
+   height: 80%;
+
+   img {
+   border-radius: 10px;
+   }
 
    @media only screen and (max-width: 768px) {
       width: 125px;
-      height: 125px;
    }
 `;
 
@@ -56,6 +63,7 @@ export const CrewInfo = styled.div`
    align-items: center;
    gap: 5px;
    color: white;
+   text-align: center;
 
    .name {
       font-size: 18px;
