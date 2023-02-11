@@ -11,7 +11,7 @@ export const ToolsContainer = styled.div`
    align-items: center;
    width: 100%;
    justify-content: center;
-   margin: 20px;
+   margin: 20px 0;
 
    @media only screen and (min-width: 640px) {
       flex-direction: row;
@@ -22,20 +22,16 @@ export const ToolsContainer = styled.div`
 export const SelectContainer = styled.div`
    display: flex;
    gap: 30px;
+   width: 95%;
    justify-content: end;
    margin-top: 20px;
-   margin-right: 0;
    font-size: 14px;
+   flex-direction: column;
+   font-size: 18px;
 
    @media only screen and (min-width: 640px) {
       margin: 0;
-      margin-right: 40px;
-      font-size: 18px;
-   }
-
-   @media only screen and (max-width: 480px) {
-      flex-direction: column;
-      margin-top: 10px;
+      margin-right: 20px;
       font-size: 18px;
    }
 
@@ -44,9 +40,17 @@ export const SelectContainer = styled.div`
       background-color: var(--black-light);
       border: 2px solid var(--black-lighter);
       border-radius: 5px 38px 38px 5px;
-      width: 150px;
+      width: 100%;
       height: auto;
       color: white;
+
+      @media only screen and (min-width: 640px) {
+         width: 170px;
+      }
+
+      @media only screen and (min-width: 768px) {
+         width: 200px;
+      }
    }
 
    .select__placeholder {

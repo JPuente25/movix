@@ -1,9 +1,9 @@
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect, useEffect } from 'react';
 import _ from 'underscore';
 import Select from 'react-select';
 import { v4 as uuidv4 } from 'uuid';
 import makeAnimated from 'react-select/animated';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { Container, MoviesContainer, SelectContainer, Title, ToolsContainer } from './index.styled';
 import { getGenres } from '../../features/movix/HomeSlice';
@@ -13,7 +13,8 @@ import { DataProps } from '../../types';
 import { MovieCard } from '../../components/MovieCard';
 import { fetchAxios } from '../../utils/api/api';
 import { Loader } from '../SearchResult/Loader';
-import { NotFound } from '../NotFound';
+import { MediaNotFound } from '../NotFound/MediaNotFound';
+import { unsetErrors } from '../../features/movix/DetailsSlice';
 
 
 const sortOptions = [
@@ -48,16 +49,19 @@ interface ExploreState {
 }
 
 const Explore = () => {
+   const location = useLocation();
    const dispatch = useAppDispatch();
    const { genres } = useAppSelector((state) => state.home);
    const params = useParams();
    const mediaType = params.mediaType!;
-
+   
    const [sort, setSort] = useState<ExploreState['sort']>(sortOptions[0]);
    const [selectedGenres, setSelectedGenres] = useState<ExploreState['selectedGenres']>([]);
    const [movies, setMovies] = useState<ExploreState['movies']>({} as DataProps);
    const [loading, setLoading] = useState<ExploreState['loading']>(true);
    const [page, setPage] = useState<number>(1);
+   
+
 
    const genresOptions = genres[mediaType as keyof typeof genres]?.map(
       (genre: { id: number; name: string }) => ({ label: genre.name, value: genre.id })
@@ -137,8 +141,12 @@ const Explore = () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [sort, selectedGenres, params]);
 
+   useEffect(() => {
+      dispatch(unsetErrors());
+   }, [location]);
+
    if (mediaType !== 'movie' && mediaType !== 'tv') {
-      return <NotFound />
+      return <MediaNotFound />
    }
 
    return (

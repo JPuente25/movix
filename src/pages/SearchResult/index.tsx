@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import _ from 'underscore';
 import { v4 as uuidv4 } from 'uuid';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { DataProps } from '../../types';
 import { fetchAxios } from '../../utils/api/api';
 import { MoviesContainer } from '../Explore/index.styled';
@@ -10,6 +10,8 @@ import { MovieCard } from '../../components/MovieCard';
 import { Container } from './index.styled';
 import { Loader } from './Loader';
 import { NoContent } from '../../components/NoContent';
+import { unsetErrors } from '../../features/movix/DetailsSlice';
+import { useAppDispatch } from '../../app/hooks';
 
 interface SearchStates {
    data: DataProps;
@@ -18,6 +20,8 @@ interface SearchStates {
 }
 
 const SearchResult = () => {
+   const dispatch = useAppDispatch();
+   const location = useLocation();
    const params = useParams();
    const query = params.query;
    const [data, setData] = useState<SearchStates['data']>({} as DataProps);
@@ -83,7 +87,10 @@ const SearchResult = () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [params]);
 
-   console.log(data.results);
+   useEffect(() => {
+      dispatch(unsetErrors());
+   }, [location]);
+
 
    return (
       <Container>

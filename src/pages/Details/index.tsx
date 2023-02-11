@@ -11,12 +11,8 @@ import { SkeletonMovieDetails } from '../../containers/MovieDetails/skeleton';
 import { MoviesCarousel } from '../../containers/MoviesCarousel';
 import { getCredits, getDetails, getVideos } from '../../features/movix/DetailsSlice';
 import { NotFound } from '../NotFound';
+import { MediaNotFound } from '../NotFound/MediaNotFound';
 import { WrappedContainer } from './index.styled';
-
-
-
-
-
 
 const Details = () => {
    const navigate = useNavigate();
@@ -40,7 +36,7 @@ const Details = () => {
    }
 
    if (errorMovie && errorCredits && errorVideos) {
-      return <Navigate to='/notfound'/>
+      return <MediaNotFound />
    }
 
    return (
