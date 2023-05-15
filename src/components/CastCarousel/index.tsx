@@ -11,6 +11,9 @@ interface Props {
 }
 
 const CastCarousel = ({data}: Props) => {
+
+
+
    return (
       <Section className="topCast">
          <h1 className="title">Top Cast</h1>
@@ -32,7 +35,7 @@ const CastCarousel = ({data}: Props) => {
                   </CrewInfo>
                </CrewCard>
             ))
-         : <NoContent />}
+               : <NoContent />}
 
          </Container>
       </Section>

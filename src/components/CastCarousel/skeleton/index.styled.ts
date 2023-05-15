@@ -36,6 +36,10 @@ export const Container = styled.div`
    overflow: scroll;
    overflow-y: visible;
    gap: 20px;
+   scrollbar-width: 0px;
+   &::-webkit-scrollbar {
+      display: none;
+   }
 `;
 
 // Crew people

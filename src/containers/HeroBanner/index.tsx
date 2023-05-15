@@ -4,6 +4,7 @@ import { useAppSelector } from '../../app/hooks';
 import { ContentWrapper } from '../../components/ContentWrapper';
 import { Img } from '../../components/Img';
 import { BASE_IMG_URL } from '../../utils/api/api';
+import { isArrayEmpty } from '../../utils/functions/isArrayEmpty';
 import {
    BackdropImg,
    ContentContainer,
@@ -23,10 +24,13 @@ const HeroBanner = () => {
 
    useEffect(() => {
       if (popularMovies.results) {
-         const bgPath =
-            popularMovies.results[Math.floor(Math.random() * popularMovies.results.length)]
-               .backdrop_path;
-         setBackground(BASE_IMG_URL + bgPath);
+         if (!isArrayEmpty(popularMovies.results)){
+            const bgPath =
+               popularMovies.results[Math.floor(Math.random() * popularMovies.results.length)]
+                  .backdrop_path;
+   
+            setBackground(BASE_IMG_URL + bgPath);
+         }
       }
    }, [popularMovies]);
 
@@ -34,14 +38,8 @@ const HeroBanner = () => {
       setQuery(e.target.value);
    };
 
-   const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === 'Enter' && query.length !== 0) {
-         handleSearch();
-      }
-   };
-
    const handleSearch = () => {
-      if (query === '') {
+      if (!query) {
          setQueryWarning(true);
          setTimeout(() => {
             setQueryWarning(false);
@@ -53,7 +51,7 @@ const HeroBanner = () => {
 
    return (
       <StyledHeroBanner>
-         {!loadingPopular && (
+         {!loadingPopular && background && (
             <BackdropImg className="backdrop">
                <Img src={background} />
             </BackdropImg>
@@ -69,7 +67,9 @@ const HeroBanner = () => {
                   Millions of movies, TV shows and people to discover. Explore now.
                </Subtitle>
 
-               <SearchField queryWarning={queryWarning.toString()}>
+               <SearchField
+                  onSubmit={(e) => e.preventDefault()}
+                  queryWarning={queryWarning.toString()}>
                   <input
                      type="text"
                      placeholder={
@@ -79,7 +79,6 @@ const HeroBanner = () => {
                      }
                      onChange={handleChange}
                      value={query}
-                     onKeyUp={handleEnter}
                   />
                   <button onClick={handleSearch}>Search</button>
                </SearchField>

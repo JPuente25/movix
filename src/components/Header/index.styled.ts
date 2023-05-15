@@ -31,10 +31,8 @@ export const StyledHeader = styled.header<Props>`
             backdrop-filter: blur(3.5px);
             -webkit-backdrop-filter: blur(3.5px);`
          : props.show === 'show'
-         ? `background-color: var(--black3);`
-         : props.show === 'hide'
-         ? `transform: translateY(-60px);`
-         : ``}
+            ? `background-color: var(--black3);`
+            : `transform: translateY(-60px);`}
 
    background-color: ${(props) => props.mobileMenu === 'true' && 'var(--black3)'};
 `;
@@ -87,25 +85,23 @@ export const MenuItemContainer = styled.ul<Props>`
          : `
             animation: none;
          `}
-`;
+   li {
+      display: flex;
+      flex-direction: row;
+      height: 60px;
+      align-items: center;
+      color: white;
+      font-weight: 500;
+      position: relative;
+      cursor: pointer;
 
-export const MenuItem = styled.li<Props>`
-   display: flex;
-   flex-direction: row;
-   height: 60px;
-   align-items: center;
-   color: white;
-   font-weight: 500;
-   position: relative;
-   cursor: pointer;
+      &:hover {
+         color: var(--pink);
+      }
 
-   &:hover {
-      color: var(--pink);
-   }
-
-   ${(props) =>
-      props.mobileMenu === 'true'
-         ? `
+      ${(props) =>
+         props.mobileMenu === 'true'
+            ? `
          font-size: 20px;
          width: 100%;
          height: auto;
@@ -118,7 +114,8 @@ export const MenuItem = styled.li<Props>`
             display: none;
          }
          `
-         : ``}
+            : ``};
+   }
 `;
 
 export const MobileMenu = styled.div`

@@ -1,16 +1,15 @@
-import React from 'react';
-import { CrewInfo, CrewCard, Picture, Container, Section } from './index.styled';
+import { Container, CrewCard, CrewInfo, Picture, Section } from './index.styled';
 
 
 const SkeletonCastCarousel = () => {
    return (
-      <Section className="topCast">
+      <Section className="topCast" role={'contentinfo'} data-testid="skeletonCastCarousel">
          <div className="title"></div>
 
          <Container className="crewContainer">
 
             {new Array(8).fill(1).map((person, i) => (
-               <CrewCard key={i} className="crew">
+               <CrewCard role='group' key={i} className="crew">
                   <Picture className="picture"></Picture>
                   
                   <CrewInfo className="info">

@@ -132,8 +132,8 @@ export const Rating = styled.div`
    }
 `;
 
-export const Trailer = styled.div`
-   display: flex;
+export const Trailer = styled.div<{trailerUrl: string}>`
+   display: ${props => props.trailerUrl === 'true' ? 'flex' : 'none'};
    align-items: center;
    gap: 20px;
 

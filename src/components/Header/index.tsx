@@ -6,7 +6,6 @@ import { VscChromeClose } from 'react-icons/vsc';
 import logo from '../../assets/movix-logo.svg';
 import {
    Logo,
-   MenuItem,
    MenuItemContainer,
    MobileMenu,
    StyledContentWrapper,
@@ -33,8 +32,8 @@ const Header = () => {
    }, [lastScrollY]);
 
    useEffect(() => {
-      window.scrollTo(0,0);
-   }, [location])
+      window.scrollTo(0, 0);
+   }, [location]);
 
    const controlNavBar = () => {
       if (window.scrollY === 0) {
@@ -49,7 +48,7 @@ const Header = () => {
 
    const openSearch = () => {
       setMobileMenu(false);
-      setShowSearch(true);
+      setShowSearch(prev => !prev);
    };
 
    const openMobileMenu = () => {
@@ -86,27 +85,19 @@ const Header = () => {
             </Logo>
 
             <MenuItemContainer mobileMenu={mobileMenu.toString()}>
-               <MenuItem
-                  mobileMenu={mobileMenu.toString()}
-                  onClick={() => handleNavigation('movie')}>
-                  Movies
-               </MenuItem>
-               <MenuItem
-                  mobileMenu={mobileMenu.toString()}
-                  onClick={() => handleNavigation('tv')}>
-                  TV Shows
-               </MenuItem>
-               <MenuItem mobileMenu={mobileMenu.toString()}>
-                  <HiOutlineSearch onClick={openSearch} />
-               </MenuItem>
+               <li onClick={() => handleNavigation('movie')}>Movies</li>
+               <li onClick={() => handleNavigation('tv')}>TV Shows</li>
+               <li>
+                  <HiOutlineSearch data-testid="menuContainerSearch" onClick={openSearch} />
+               </li>
             </MenuItemContainer>
 
-            <MobileMenu>
-               <HiOutlineSearch onClick={openSearch} />
+            <MobileMenu role="article">
+               <HiOutlineSearch data-testid="menuMobileSearch" onClick={openSearch} />
                {mobileMenu ? (
-                  <VscChromeClose onClick={() => setMobileMenu(false)} />
+                  <VscChromeClose data-testid="menuMobileClose" onClick={() => setMobileMenu(false)} />
                ) : (
-                  <SlMenu onClick={openMobileMenu} />
+                  <SlMenu data-testid="menuMobileBars" onClick={openMobileMenu} />
                )}
             </MobileMenu>
          </StyledContentWrapper>
@@ -120,7 +111,7 @@ const Header = () => {
                   value={query}
                   onKeyUp={handleEnter}
                />
-               <VscChromeClose onClick={() => setShowSearch(false)} />
+               <VscChromeClose data-testid="searchClose" onClick={() => setShowSearch(false)} />
             </StyledSearchField>
          )}
       </StyledHeader>

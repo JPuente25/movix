@@ -1,5 +1,7 @@
-import React from 'react';
-import { useAppSelector } from '../../app/hooks';
+import React, {useEffect} from 'react';
+import { useDispatch } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { getGenres } from '../../features/movix/HomeSlice';
 import { Genre, GenresContainer } from './index.styled';
 
 interface Props {
@@ -8,28 +10,15 @@ interface Props {
 
 const GenresCarousel = ({ data }: Props) => {
    const { genres } = useAppSelector((state) => state.home);
-
    const genresInfo = data.map((genre) => genres.movie?.find((item) => item.id === genre));
-
-   const handleSearchGenre = (id: number, e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
-      e.stopPropagation();
-      console.log(id);
-   };
 
    return (
       <GenresContainer>
          {genresInfo.map((genre) => {
             if (genre) {
-               return (
-                  <Genre
-                     key={genre.id}
-                     onClick={(e) => handleSearchGenre(genre.id, e)}
-                  >
-                     {genre.name}
-                  </Genre>
-               );
+               return <Genre role='listitem' key={genre.id}>{genre.name}</Genre>;
             }
-            return false;
+            return genre;
          })}
       </GenresContainer>
    );

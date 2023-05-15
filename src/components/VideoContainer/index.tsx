@@ -10,8 +10,8 @@ interface Props {
 
 const VideoContainer = ({ toggleVideoView, videoUrl }: Props) => {
    return (
-      <Container className="videoContainer">
-         <IoMdCloseCircleOutline onClick={toggleVideoView} />
+      <Container className="videoContainer" role='group'>
+         <IoMdCloseCircleOutline role="figure" onClick={toggleVideoView} />
          <VideoPlayer src={videoUrl} />
       </Container>
    );

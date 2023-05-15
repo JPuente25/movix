@@ -9,7 +9,7 @@ const Img = ({src}: {src: string | null}) => {
       <ImgContainer>
          <LazyLoadImage 
             className="Img"
-            alt=""
+            alt={src ? 'movie/cast-picture' : 'no-image-found'}
             effect="black-and-white"
             src={src || PosterNotFound}
          />

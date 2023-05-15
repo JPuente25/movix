@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { CastCarousel } from '../../components/CastCarousel';
 import { SkeletonCastCarousel } from '../../components/CastCarousel/skeleton';
@@ -11,11 +11,9 @@ import { SkeletonMovieDetails } from '../../containers/MovieDetails/skeleton';
 import { MoviesCarousel } from '../../containers/MoviesCarousel';
 import { getCredits, getDetails, getVideos } from '../../features/movix/DetailsSlice';
 import { NotFound } from '../NotFound';
-import { MediaNotFound } from '../NotFound/MediaNotFound';
 import { WrappedContainer } from './index.styled';
 
 const Details = () => {
-   const navigate = useNavigate();
    const params = useParams();
    const dispatch = useAppDispatch();
    const { movie, credits, videos, loadingMovie, loadingCredits, loadingVideos, errorMovie, errorCredits, errorVideos } = useAppSelector(
@@ -32,50 +30,52 @@ const Details = () => {
    }, [params]);
 
    if (mediaType !== 'movie' && mediaType !== 'tv') {
-      return <NotFound />
+      return <NotFound type="page"/>
    }
 
    if (errorMovie && errorCredits && errorVideos) {
-      return <MediaNotFound />
+      return <NotFound type="media"/>
+   } else {
+      return (
+         <WrappedContainer>
+   
+            {(!loadingMovie && !loadingCredits && (!errorMovie || !errorCredits)) 
+               ? <MovieDetails
+                  data={movie}
+                  credits={credits}/>
+               : (errorMovie || errorCredits) 
+                  ? <SomethingWrong />
+                  : <SkeletonMovieDetails />}
+   
+   
+            {(!loadingCredits && !errorCredits) 
+               ? <CastCarousel data={credits} /> 
+               : (errorCredits)
+                  ? <SomethingWrong />
+                  : <SkeletonCastCarousel />}
+   
+   
+            {(!loadingVideos && !errorVideos) 
+               ? <OfficialVideos data={videos} /> 
+               : (errorVideos) 
+                  ? <SomethingWrong />
+                  : <SkeletonOfficialVideos />}
+   
+            <MoviesCarousel
+               title="Upcoming Movies"
+               dataType="upcoming-movies"
+               fixedMedia={'movie'}
+            />
+   
+            <MoviesCarousel
+               title="Recommendations"
+               dataType="recommendations"
+            />
+         </WrappedContainer>
+      );
    }
 
-   return (
-      <WrappedContainer>
-
-         {(!loadingMovie && !loadingCredits && (!errorMovie || !errorCredits)) 
-            ? <MovieDetails
-               data={movie}
-               credits={credits}/>
-            : (errorMovie || errorCredits) 
-               ? <SomethingWrong />
-               : <SkeletonMovieDetails />}
-
-
-         {(!loadingCredits && !errorCredits) 
-            ? <CastCarousel data={credits} /> 
-            : (errorCredits)
-               ? <SomethingWrong />
-               : <SkeletonCastCarousel />}
-
-
-         {(!loadingVideos && !errorVideos) 
-            ? <OfficialVideos data={videos} /> 
-            : (errorVideos) 
-               ? <SomethingWrong />
-               : <SkeletonOfficialVideos />}
-
-         <MoviesCarousel
-            title="Upcoming Movies"
-            dataType="upcoming-movies"
-            fixedMedia={'movie'}
-         />
-
-         <MoviesCarousel
-            title="Recommendations"
-            dataType="recommendations"
-         />
-      </WrappedContainer>
-   );
 };
 
 export { Details };
+

@@ -1,9 +1,6 @@
-import {useEffect} from 'react';
-import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
-import { useAppDispatch } from '../app/hooks';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
-import { unsetErrors } from '../features/movix/DetailsSlice';
 import { Details } from '../pages/Details';
 import { Explore } from '../pages/Explore';
 import { Home } from '../pages/Home';
@@ -33,7 +30,7 @@ function App() {
                />
                <Route
                   path="*"
-                  element={<NotFound />}
+                  element={<NotFound type="page"/>}
                />
             </Routes>
             <Footer />

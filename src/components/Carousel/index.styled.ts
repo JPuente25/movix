@@ -7,14 +7,15 @@ export const ContentWrapper = styled(Container)`
    padding: 0;
 `;
 
-export const MovieContainer = styled.div`
+export const MovieContainer = styled.section`
    display: flex;
    overflow: scroll;
    width: 100%;
    gap: 10px;
-    &::-webkit-scrollbar {
+   scrollbar-width: 0px;
+   &::-webkit-scrollbar {
       display: none;
-    }
+   }
 `;
 
 export const GenresContainer = styled.div`

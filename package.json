@@ -1,5 +1,5 @@
 {
-  "name": "redux-practico",
+  "name": "movix",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -25,6 +25,8 @@
     "react-router-dom": "^6.8.0",
     "react-scripts": "5.0.1",
     "react-select": "^5.7.0",
+    "redux-mock-store": "^1.5.4",
+    "redux-thunk": "^2.4.2",
     "styled-components": "^5.3.6",
     "typescript": "^4.9.4",
     "underscore": "^1.13.6",
@@ -34,7 +36,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!axios)/\"",
+    "test-coverage": "react-scripts test --transformIgnorePatterns \"node_modules/(?!axios)/\" --coverage",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
@@ -59,9 +62,10 @@
   },
   "devDependencies": {
     "@types/react-lazy-load-image-component": "^1.5.2",
+    "@types/redux-mock-store": "^1.0.3",
     "@types/underscore": "^1.11.4",
     "@types/uuid": "^9.0.0",
     "gh-pages": "^5.0.0"
   },
-  "homepage": "https://JPuente25.github.io/redux-practico"
+  "homepage": "https://JPuente25.github.io/movix"
 }

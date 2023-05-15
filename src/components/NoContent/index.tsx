@@ -1,6 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const NoContent = () => {
+
+   return (
+      <Box>
+         <span>There is not content to show!</span>
+      </Box>
+   );
+};
+
+export { NoContent };
+
 const Box = styled.div`
    color: white;
    opacity: 0.5;
@@ -12,15 +23,3 @@ const Box = styled.div`
    place-items: center;
    background-color: var(--black3);
 `;
-
-
-const NoContent = () => {
-
-   return (
-      <Box>
-         <span>There is not content to show!</span>
-      </Box>
-   );
-};
-
-export { NoContent };

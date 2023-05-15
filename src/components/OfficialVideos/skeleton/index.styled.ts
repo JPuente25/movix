@@ -21,6 +21,10 @@ export const CardContainer = styled.div`
    display: flex;
    gap: 20px;
    overflow: scroll;
+   scrollbar-width: 0px;
+   &::-webkit-scrollbar {
+      display: none;
+   }
 `;
 
 //---------

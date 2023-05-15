@@ -12,7 +12,10 @@ interface initialStateProps {
    loadingTrending: boolean;
    loadingGenres: boolean;
    loadingTopRated: boolean;
-   error: any;
+   errorPopular: any;
+   errorTrending: any;
+   errorTopRated: any;
+   errorGenres: any;
 }
 
 const initialState: initialStateProps = {
@@ -24,7 +27,10 @@ const initialState: initialStateProps = {
    loadingPopular: true,
    loadingTrending: true,
    loadingTopRated: true,
-   error: null,
+   errorPopular: false,
+   errorTrending: false,
+   errorGenres: false,
+   errorTopRated: false,
 };
 
 export const getPopularMovies = createAsyncThunk('movix/getPopularMovies', async (url: string) => {
@@ -86,7 +92,7 @@ export const homeSlice = createSlice({
          .addCase(getPopularMovies.rejected, (state, action) => {
             if (state.loadingPopular) {
                state.loadingPopular = false;
-               state.error = action.error;
+               state.errorPopular = action.error;
             }
          })
 
@@ -105,7 +111,7 @@ export const homeSlice = createSlice({
          .addCase(getTrendingMovies.rejected, (state, action) => {
             if (state.loadingTrending) {
                state.loadingTrending = false;
-               state.error = action.error;
+               state.errorTrending = action.error;
             }
          })
 
@@ -128,7 +134,7 @@ export const homeSlice = createSlice({
          .addCase(getGenres.rejected, (state, action) => {
             if (state.loadingGenres) {
                state.loadingGenres = false;
-               state.error = action.error;
+               state.errorGenres = action.error;
             }
          })
 
@@ -147,7 +153,7 @@ export const homeSlice = createSlice({
          .addCase(getTopRatedMovies.rejected, (state, action) => {
             if (state.loadingTopRated) {
                state.loadingTopRated = false;
-               state.error = action.error;
+               state.errorTopRated = action.error;
             }
          });
    },

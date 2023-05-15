@@ -1,4 +1,3 @@
-import React from 'react';
 import {
    DataInfo,
    MovieInfo,
@@ -9,12 +8,12 @@ import {
    Tagline,
    Title,
    Trailer,
-   WrappedContainer,
+   WrappedContainer
 } from './index.styled';
 
 const SkeletonMovieDetails = () => {
    return (
-      <WrappedContainer className="movieDetails">
+      <WrappedContainer className="movieDetails" data-testid="skeletonMovieDetails">
          <PosterImg className="Picture" />
 
          <div className="description">
@@ -55,3 +54,4 @@ const SkeletonMovieDetails = () => {
 };
 
 export { SkeletonMovieDetails };
+

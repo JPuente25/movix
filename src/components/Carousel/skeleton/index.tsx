@@ -13,7 +13,7 @@ const SkeletonMoviesCarousel = () => {
       <ContentWrapper>
          <SkeletonContainer>
             {new Array(15).fill(1).map((movie, id) => (
-               <SkeletonMovie key={id}>
+               <SkeletonMovie role='group' key={id}>
                   <SkeletonPoster />
 
                   <SkeletonTextBlock>

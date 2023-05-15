@@ -1,50 +1,73 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
+import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from 'react-icons/bs';
 import { v4 as uuidv4 } from 'uuid';
 import { Carousel } from '../../components/Carousel';
-import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from 'react-icons/bs';
 import {
    CarouselSection,
    ContentWrapper,
    Notch,
    SwitchContainer,
    Tab,
-   Title,
+   Title
 } from './index.styled';
 
 interface Props {
    title: string;
-   dataType: string;
-   selectedTab?: number;
-   setSelectedTab?: React.Dispatch<React.SetStateAction<number>>;
+   dataType: string; //trending | popular | top-rated | upcoming-movies | recommendations
    options?: Array<{
-      label: string,
-      value: string
-   }>
-   fixedMedia?: string;
-   className?: string
+      // [{
+      label: string; //  label: 'Day' | label: 'Week' | label: 'Movie' | label: 'TV Shows'
+      value: string; //   value: 'day' | value: 'week' | value: 'movie' | value: 'tv'
+   }>; // }]
+   fixedMedia?: string; // movie | tv
+   className?: string;
 }
 
-const MoviesCarousel = ({ title, selectedTab, setSelectedTab, options, fixedMedia, dataType, className}: Props) => {
-   const container = useRef(null);
-   const carouselSection = useRef(null);
-   const selectedOption: string | null = fixedMedia ? fixedMedia : options ? options![selectedTab!].value : null;
+interface MoviesCarouselStates {
+   selectedTab: number;
+}
+
+/*
+1. title, dataType, options, className?
+2. title, dataType, fixedMedia, className?
+*/
+
+const MoviesCarousel = ({
+   title,
+   options,
+   fixedMedia,
+   dataType,
+   className,
+}: Props) => {
+
+   const container = useRef<HTMLDivElement>(null);
+   const carouselSection = useRef<HTMLElement>(null);
+   const [selectedTab, setSelectedTab] = useState<MoviesCarouselStates['selectedTab']>(0);
+   const selectedOption: string | null = fixedMedia
+      ? fixedMedia
+      : options
+         ? options[selectedTab].value
+         : null;
+
+   const selectedLabel: string = options ? options[selectedTab].label : '';
 
    const handleSwitch = (optionIndex: number) => {
       if (selectedTab !== optionIndex) {
-         setSelectedTab!(optionIndex);
+         setSelectedTab(optionIndex);
       }
    };
 
    const handleScroll = (dir: string) => {
       const element = container.current;
-      const availableWidth = (carouselSection.current as any).clientWidth;
-      
-      if (element) {
-         const scrollAmmount: number = (dir === 'right') 
-         ? (element as any).scrollLeft + availableWidth - 20  
-         : (element as any).scrollLeft - availableWidth + 20;
-         
-         (element as any).scrollTo({
+      const availableWidth = carouselSection.current!.clientWidth;
+
+      if(element) {
+         const scrollAmmount: number =
+            dir === 'right'
+               ? element.scrollLeft + availableWidth - 20 //right
+               : element.scrollLeft - availableWidth + 20; //left
+   
+         element.scrollTo({
             left: scrollAmmount,
             behavior: 'smooth',
          });
@@ -52,40 +75,51 @@ const MoviesCarousel = ({ title, selectedTab, setSelectedTab, options, fixedMedi
    };
 
    return (
-      <CarouselSection ref={carouselSection} className={className}>
+      <CarouselSection
+         ref={carouselSection}
+         className={className}>
          <ContentWrapper>
-            <BsFillArrowLeftCircleFill
-               onClick={() => handleScroll('left')}
-               className="arrow arrowLeft"/>
-            <BsFillArrowRightCircleFill
-               onClick={() => handleScroll('right')}
-               className="arrow arrowRight"/>
+               <React.Fragment>
+                  <BsFillArrowLeftCircleFill
+                     data-testid="arrowIcon"
+                     onClick={() => handleScroll('left')}
+                     className="arrow arrowLeft"
+                  />
+                  <BsFillArrowRightCircleFill
+                     data-testid="arrowIcon"
+                     onClick={() => handleScroll('right')}
+                     className="arrow arrowRight"
+                  />
+               </React.Fragment>
 
-            <Title>{title}</Title>
+            <Title>{title}{selectedLabel ? `: ${selectedLabel}` : ''}</Title>
 
-            
-            {options && <SwitchContainer>
-               {options.map((option, i) => (
-                  <Tab
-                     key={uuidv4()}
-                     selectedTab={selectedTab!}
-                     tab={i}
-                     onClick={() => handleSwitch(i)}>
-                     {option.label}
-                  </Tab> ))}
+            {options && (
+               <SwitchContainer>
+                  {options.map((option, i) => (
+                     <Tab
+                        key={uuidv4()}
+                        selectedTab={selectedTab!}
+                        tab={i}
+                        onClick={() => handleSwitch(i)}>
+                        {option.label}
+                     </Tab>
+                  ))}
 
-               <Notch selectedTab={selectedTab!}></Notch>
-            </SwitchContainer>}
-
+                  <Notch selectedTab={selectedTab!}></Notch>
+               </SwitchContainer>
+            )}
          </ContentWrapper>
 
          <Carousel
-            sectionRef={carouselSection}
+            sectionWidth={carouselSection.current?.clientWidth}
             reference={container}
             dataType={dataType}
-            selectedOption={selectedOption} />
+            selectedOption={selectedOption}
+         />
       </CarouselSection>
    );
 };
 
 export { MoviesCarousel };
+

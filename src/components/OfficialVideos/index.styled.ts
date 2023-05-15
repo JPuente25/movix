@@ -48,7 +48,7 @@ export const VideoPlay = styled.div`
    width: 290px;
 `;
 
-export const VideoImage = styled.figure`
+export const VideoImage = styled.div`
    overflow: hidden;
    width: 100%;
    height: 100%;

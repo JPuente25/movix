@@ -2,7 +2,7 @@ import styled, { keyframes } from 'styled-components';
 
 export const Loader = () => {
    return (
-      <Container>
+      <Container role="figure">
          <div></div>
          <div></div>
          <div></div>

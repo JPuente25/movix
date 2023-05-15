@@ -2,7 +2,7 @@ export interface MovieProps {
    adult: boolean;
    backdrop_path: string;
    genres?: GenresType
-   genre_ids: Array<number>;
+   genre_ids?: Array<number>;
    id: number;
    media_type?: string
    original_language: string;
@@ -11,14 +11,14 @@ export interface MovieProps {
    popularity: number;
    poster_path: string;
    release_date: string;
-   runtime: number
+   runtime?: number
    status?: string;
    title?: string;
    video: boolean;
    vote_average: number;
    vote_count: number;
    name?: string;
-   tagline: string;
+   tagline?: string;
 }
 
 export interface DataProps {
@@ -46,17 +46,17 @@ export interface CastProps {
    adult: boolean;
    gender: number;
    id: number;
-   know_for_department: string;
+   known_for_department: string;
    name: string;
    original_name: string;
    popularity: number;
    profile_path: string;
    cast_id?: number;
-   character: string;
+   character?: string;
    credit_id: string;
    department?: string;
    job?: string;
-   order: 0;
+   order?: number;
 }
 
 export interface CreditsProps {

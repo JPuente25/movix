@@ -21,8 +21,7 @@ export const Container = styled.div`
    display: flex;
    height: 100%;
    align-items: start;
-   overflow: scroll;
-   overflow-y: visible;
+   overflow-x: scroll;
    gap: 20px;
 
    &::-webkit-scrollbar {

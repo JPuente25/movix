@@ -36,7 +36,7 @@ const MovieDetails = ({ data, credits }: Props) => {
    const [trailerView, setTrailerView] = useState<MovieDetailsStates['trailerView']>(false);
    const moviePoster = data.poster_path ? BASE_IMG_URL + data.poster_path : null;
 
-   const movieTitle = data.title || data.name;
+   const movieTitle = data.title || data.name || data.original_title;
    const releaseYear = dayjs(data.release_date).format('YYYY');
    const releaseDate = dayjs(data.release_date).format('MMM DD, YYYY');
    const movieDirectors = credits.crew
@@ -88,7 +88,7 @@ const MovieDetails = ({ data, credits }: Props) => {
                   <RatingCircle rating={data.vote_average.toFixed(1)} />
                </Rating>
 
-               <Trailer className="trailer">
+               <Trailer className="trailer" trailerUrl={trailerUrl ? 'true' : 'false'}>
                   <PlayIcon toggleVideoView={toggleTrailerView} />
                   <span onClick={toggleTrailerView}>Watch Trailer</span>
                </Trailer>

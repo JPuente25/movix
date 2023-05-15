@@ -21,15 +21,13 @@ const OfficialVideos = ({ data }: Props) => {
    const [videoUrl, setVideoUrl] = useState<OfficialVideosStates['videoUrl']>(undefined);
 
    const toggleVideoView = () => {
-      setVideoView((prev) => !prev);
-      if (videoView) {
-         setVideoUrl(undefined);
-      }
+      setVideoView(false);
+      setVideoUrl(undefined);
    };
 
    const handlePlay = (video: VideoProps) => {
-      setVideoView(true);
       const videoLink = video.key ? `https://www.youtube.com/embed/${video.key}` : undefined;
+      setVideoView(true);
       setVideoUrl(videoLink);
    };
 
@@ -47,6 +45,7 @@ const OfficialVideos = ({ data }: Props) => {
             {data.length !== 0 ? (
                data.map((video) => (
                   <VideoCard
+                     role="article"
                      key={uuidv4()}
                      className="videoCard">
                      <VideoPlay className="videoPlay">
@@ -60,10 +59,8 @@ const OfficialVideos = ({ data }: Props) => {
                            />
                            <div
                               className="playicon"
-                              onClick={() => {
-                                 handlePlay(video);
-                              }}>
-                              <PlayIcon />
+                              >
+                              <PlayIcon toggleVideoView={() => handlePlay(video)} />
                            </div>
                         </VideoImage>
                      </VideoPlay>

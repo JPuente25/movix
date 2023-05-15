@@ -22,6 +22,10 @@ export const SkeletonContainer = styled.div`
    overflow: scroll;
    width: 100%;
    gap: 10px;
+   scrollbar-width: 0px;
+   &::-webkit-scrollbar {
+      display: none;
+   }
 `;
 
 export const SkeletonMovie = styled.div`

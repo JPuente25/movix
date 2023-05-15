@@ -1,13 +1,13 @@
 import { Play } from "./index.styled";
 
 interface Props {
-   toggleVideoView?: () => void
+   toggleVideoView: () => void
 }
 
 export const PlayIcon = ({toggleVideoView}: Props) => {
 
    return (
-      <Play className='playbtn' onClick={toggleVideoView}>
+      <Play role={'contentinfo'} className='playbtn' onClick={toggleVideoView}>
          <svg
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
